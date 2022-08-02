@@ -1,0 +1,1 @@
+# frinx-machine-e2e-tests
