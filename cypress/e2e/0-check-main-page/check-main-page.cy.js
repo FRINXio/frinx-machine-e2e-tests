@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('example to-do app', () => {
+describe('check main page of Frinx-machine', () => {
     beforeEach(() => {
         cy.visit('localhost:8080/frinxui')
     })
