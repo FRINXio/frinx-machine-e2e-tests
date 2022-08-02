@@ -5,7 +5,7 @@ describe('check main page of Frinx-machine', () => {
         cy.visit('localhost:8080/frinxui')
     })
 
-    it('displays two todo items by default', () => {
+    it('Check title of the main page', () => {
         cy.title().should('eq', 'FRINX Dashboard')
     })
 
