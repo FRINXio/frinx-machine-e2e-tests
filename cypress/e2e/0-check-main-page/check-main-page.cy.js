@@ -2,7 +2,8 @@
 
 describe('check main page of Frinx-machine', () => {
     beforeEach(() => {
-        cy.visit('krakend.default.svc.cluster.local')
+        // cy.visit('krakend.default.svc.cluster.local')
+        cy.visit('demo.frinx.io')
     })
 
     it('Check title of the main page', () => {
