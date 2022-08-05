@@ -24,6 +24,7 @@ helm install frinx-machine frinx/frinx-machine --set demo-workflows.enabled=true
 
 For npm
 ```
+kubectl port-forward svc/krakend 8080:80
 npx cypress run --env host=localhost:8080
 ```
 
