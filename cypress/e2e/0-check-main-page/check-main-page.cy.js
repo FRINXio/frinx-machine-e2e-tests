@@ -2,7 +2,7 @@
 
 describe('check main page of Frinx-machine', () => {
     beforeEach(() => {
-        cy.visit('http://krakend.default.svc.cluster.local:80/')
+        cy.visit(Cypress.env('host'))
     })
 
     it('Check title of the main page', () => {
