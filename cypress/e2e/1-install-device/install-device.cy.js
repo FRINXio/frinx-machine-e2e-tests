@@ -17,10 +17,10 @@ describe('install IOS device', () => {
       cy.get('button').eq(25).click();
       cy.findByText('Close').click();
       cy.findByText('Executed').click();
-      cy.findAllByText('Install_device_by_name', { timeout: 10000000 }).should('be.visible');
+      cy.findAllByText('Install_device_by_name', { timeout: 10000 }).should('be.visible');
       cy.get('tbody').get('tr').eq(1).within(() => {
         cy.get('a').click();
       });
-      cy.findAllByText('COMPLETED', { timeout: 100000000 }).should('be.visible');
+      cy.findAllByText('COMPLETED', { timeout: 100000 }).should('be.visible');
     });
 })
