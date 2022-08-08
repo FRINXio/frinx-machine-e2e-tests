@@ -9,4 +9,8 @@ describe('check main page of Frinx-machine', () => {
         cy.title().should('eq', 'FRINX Dashboard')
     })
 
+    it('Check the main page', () => {
+        cy.findAllByText('UniFlow', { timeout: 10000000 }).should('be.visible');
+    })
+
 })
