@@ -22,6 +22,6 @@ describe('install IOS device', () => {
       cy.get('tbody').get('tr').eq(1).within(() => {
         cy.get('a').click();
       });
-      cy.findAllByText('COMPLETED', { timeout: 100000 }).should('be.visible');
+      cy.findAllByText('COMPLETED', { timeout: 200000 }).should('be.visible');
     });
 })
