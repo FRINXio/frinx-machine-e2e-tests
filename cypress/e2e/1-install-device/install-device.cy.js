@@ -15,6 +15,7 @@ describe('install IOS device', () => {
       cy.get('button').eq(6).click();
       cy.findByPlaceholderText('Enter the input').type('IOS01');
       cy.get('button').eq(25).click();
+      cy.wait(1000);
       cy.findByText('Close').click();
       cy.findByText('Executed').click();
       cy.findAllByText('Install_device_by_name', { timeout: 10000 }).should('be.visible');
