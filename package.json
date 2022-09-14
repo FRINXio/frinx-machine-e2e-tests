@@ -1,5 +1,9 @@
 {
   "devDependencies": {
-    "@testing-library/cypress": "^8.0.3"
+    "@testing-library/cypress": "^8.0.3",
+    "cypress-recurse": "^1.23.0",
+    "cypress-xpath": "^2.0.1"
   }
 }
+
+
