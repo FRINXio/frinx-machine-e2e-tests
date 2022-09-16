@@ -3,18 +3,19 @@ import { recurse } from 'cypress-recurse';
 describe('frinx testy', () => {
 
 	it('workflow page', () => {
-		cy.visit('localhost')
+		cy.visit(Cypress.env('host'))
 		cy.get('#menu-button-2').click()
 		cy.get('#menu-list-2-menuitem-4').click()
 		cy.get('h1').should('include.text', 'Workflows')
-		cy.visit('localhost/frinxui/uniflow/definitions')
+		cy.get('[href="/frinxui/uniflow/definitions"]').click()
 		cy.get('h1').should('include.text', 'Workflows')
 	})
 	
 	
 	// WORKING
 	it('filter by label', () => {
-		cy.visit('localhost/frinxui/uniflow/definitions')
+		cy.visit(Cypress.env('host'))
+		cy.get('[href="/frinxui/uniflow/definitions"]').click()
 		cy.get('input').eq(1).type('CLI{enter}')
 		cy.get('tbody').find("tr")
     		.then((row) => {
@@ -26,26 +27,26 @@ describe('frinx testy', () => {
     	cy.get('input').eq(1).type('BASICS{enter}')
     	cy.get('tbody').find("tr")
     		.then((row) => {
-	      		expect(row.length).eq(10)
+			expect(row.length).eq(10)
 	      	})
 
     	cy.get('.pagination-container > .chakra-stack > :nth-child(2) > .chakra-button').click()
     	cy.get('tbody').find("tr")
     		.then((row) => {
-      			expect(row.length).eq(3)
+			expect(row.length).eq(3)
       		})
 
     	cy.get('.chakra-input__right-element > .chakra-button').click()
     	cy.get('input').eq(1).type('CLI{enter}').type('L2VPN{enter}')
     	cy.get('tbody tr').should(($tr) => {
-		    expect($tr).to.have.length(0)
+			expect($tr).to.have.length(0)
 		})
 	})
 
 	
 	// WORKING
 	it('wf uninstall all devices', () => {
-		cy.visit('localhost')
+		cy.visit(Cypress.env('host'))
 		cy.get('#menu-button-2').click()
 		cy.get('#menu-list-2-menuitem-4').click()
 		cy.url().should('include', 'definitions')
@@ -78,7 +79,7 @@ describe('frinx testy', () => {
 	
 	// WORKING
 	it('wf install all devices', () => {
-		cy.visit('localhost')
+		cy.visit(Cypress.env('host'))
 		cy.get('#menu-button-2').click()
 		cy.get('#menu-list-2-menuitem-4').click()
 		cy.url().should('include', 'definitions')
@@ -97,12 +98,8 @@ describe('frinx testy', () => {
 		cy.xpath('/html/body/div[4]/div[4]/div/section/footer/a', {timeout: 10000}).click()
 
 		cy.url().then(urlString => {
-			cy.log(urlString)
-
 			let wf_id_array = urlString.split('/')
 			const wf_id = wf_id_array[wf_id_array.length - 1]
-
-			cy.log(wf_id)
 		})
 
 		//verify
@@ -132,31 +129,32 @@ describe('frinx testy', () => {
 	      		expect(row.length).eq(2)
 	      	})
 
-    	// remove from favourites wf
-    	cy.get('#menu-button-79').click()
+    		// remove from favourites wf
+    		cy.get('#menu-button-79').click()
 		cy.get('#menu-list-79-menuitem-74').click()
 		cy.get('#menu-button-23').click()
 		cy.get('#menu-list-23-menuitem-18').click()
 
 	})
+	
 
 	it('try add wf to scheduled', () => {
 
-		cy.visit('http://localhost/frinxui/uniflow/definitions')
+		cy.visit(Cypress.env('host'))
+		cy.get('[href="/frinxui/uniflow/definitions"]').click()
 		
 		cy.get('#menu-button-79').click()
 		cy.get('#menu-list-79-menuitem-77').click()
-		//cy.contains('Create schedule').click()
 
 		var now     = new Date(); 
-        var year    = now.getFullYear();
-        var month   = now.getMonth()+1; 
-        var day     = now.getDate();
-        var hour    = now.getHours()-2;
-        var minute  = now.getMinutes()+1;
-        var second  = now.getSeconds();
+		var year    = now.getFullYear();
+		var month   = now.getMonth()+1; 
+		var day     = now.getDate();
+		var hour    = now.getHours()-2;
+		var minute  = now.getMinutes()+1;
+		var second  = now.getSeconds();
 
-        var crontab_value = minute + ' ' + hour + ' ' + day + ' ' + month + ' ' + '*'
+		var crontab_value = minute + ' ' + hour + ' ' + day + ' ' + month + ' ' + '*'
 
 		cy.xpath('/html/body/div[4]/div[4]/div/section/div/form/div[1]/input').clear().type(crontab_value)
 		cy.xpath('/html/body/div[4]/div[4]/div/section/div/form/div[2]/label/span[1]').click()
@@ -169,7 +167,6 @@ describe('frinx testy', () => {
 
 		
 		// Checking if wf has been added to sheduled tasks
-		//cy.visit('http://localhost/frinxui/uniflow/scheduled')
 		cy.get('[href="/frinxui/uniflow/scheduled"]').click()
 
 		cy.get('tbody', {timeout:2500}).find("tr")
@@ -183,28 +180,28 @@ describe('frinx testy', () => {
 
 		// Checking if WF was started from sheduled tasks
 		recurse(
-		  function () {
-		    return cy.xpath('/html/body/div[1]/div[2]/div/table/tbody/tr[1]/td[3]').invoke('text')
-		  },
-		  function (s) {
-		    return s === "RUNNING"
-		  },
-		  {
-		    limit: 250,
-		    delay: 500, // sleep for 0.5 second before reloading the page
-		    timeout: 60_000, // try up to one minute
-		    log: false,
-		    reduceFrom: [],
-		    reduce(text_arr, s) {
-		      text_arr.push(s)
-		    },
-		    post() {
-		      cy.reload()
-		    },
-		    yield: 'reduced',
-		  },
+			function () {
+				return cy.xpath('/html/body/div[1]/div[2]/div/table/tbody/tr[1]/td[3]').invoke('text')
+			},
+			function (s) {
+				return s === "RUNNING"
+			},
+			{
+				limit: 250,
+				delay: 500, // sleep for 0.5 second before reloading the page
+				timeout: 60_000, // try up to one minute
+				log: false,
+				reduceFrom: [],
+				reduce(text_arr, s) {
+					text_arr.push(s)
+				},
+				post() {
+					cy.reload()
+				},
+				yield: 'reduced',
+			},
 		).then(function (text_arr) {
-		  expect(text_arr).to.not.include("RUNNING")
+			expect(text_arr).to.not.include("RUNNING")
 		})
 
 		// NOT WORIKNG - UI do not autorefresh
@@ -239,12 +236,10 @@ describe('frinx testy', () => {
 
 		cy.url().should('include', 'builder')
 
-		//cy.visit('http://localhost/frinxui/uniflow/definitions')
 		cy.get('[href="/frinxui/uniflow/definitions"]').click()
-
 		cy.get(':nth-child(3) > .chakra-input__group > .chakra-input').type('test_name_001')
-		// nie je lebo nebol ulozeny a ulozeny bude iba ak sa don vlozi aspon 1 krok, prazdny WF sa neda ulozit
 		
+		//nie je lebo nebol ulozeny a ulozeny bude iba ak sa don vlozi aspon 1 krok, prazdny WF sa neda ulozit
 		cy.get('tbody').find("tr")
 				.then((row) => {
 					expect(row.length).eq(1)
