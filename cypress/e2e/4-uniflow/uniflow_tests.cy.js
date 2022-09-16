@@ -112,7 +112,8 @@ describe('frinx testy', () => {
 	
 	//WORKING
 	it('try add wf to favourite', () => {
-		cy.visit('http://localhost/frinxui/uniflow/definitions')
+		cy.visit(Cypress.env('host'))
+		cy.get('[href="/frinxui/uniflow/definitions"]').click()
 
 		cy.xpath('//*[@id="menu-button-23"]').click()
 		cy.xpath('//*[@id="menu-list-23-menuitem-18"]').click()
@@ -174,7 +175,7 @@ describe('frinx testy', () => {
 	      		expect(row.length).eq(1)
 	      	})
 
-    	// NOT WORIKNG - UI do not autorefresh
+    		// NOT WORIKNG - UI do not autorefresh
 		//cy.xpath('/html/body/div[1]/div[2]/div/table/tbody/tr[1]/td[3]', {timeout: 180000}).should('contain', 'RUNNING')
 		//cy.xpath('/html/body/div[1]/div[2]/div/table/tbody/tr[1]/td[3]', {timeout: 600000}).should('contain', 'COMPLETED')
 
@@ -212,7 +213,7 @@ describe('frinx testy', () => {
 	})
 
 	it('try create wf', () => {
-		cy.visit('localhost')
+		cy.visit(Cypress.env('host'))
 		cy.get('#menu-button-2').click()
 		cy.get('#menu-list-2-menuitem-4').click()
 		cy.url().should('include', 'definitions')
