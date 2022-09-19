@@ -82,6 +82,19 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.get("button[class='chakra-button css-8pcd7y']").click()
     })
 
+    /*
+    it("should check edited device",()=>{
+        cy.visit(Cypress.env('deviceInventory'))
+        cy.get("svg[class='feather feather-edit chakra-icon css-13otjrl']").eq(0).click()
+        cy.wait(500)
+        cy.contains("In Service").should("be.visible")
+        cy.contains("NOKIA").should("be.visible")
+        cy.contains("CRI-24-Y8").should("be.visible")
+        cy.contains("192.168.01.17").should("be.visible")
+        cy.contains("EXAMPLE").should("be.visible")
+    })
+    */
+
     it("should not be able to see seetings of uninstalled device",()=>{
 
         cy.visit(Cypress.env('deviceInventory'))
@@ -153,12 +166,12 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.contains("Vendor").click()
         cy.get("span[class='chakra-switch__thumb css-7roig']").click()
         cy.get("select[class='chakra-select css-k7r2wc']").eq(2).select("cli_saos_device")
-        cy.get("input[id='parsing_engine']").click().type("one-line-parser")
-        cy.get("input[id='username']").click().type("frinx")
-        cy.get("input[id='password']").click().type("frinx")
-        cy.get("input[id='device_version']").click().type("6")
-        cy.get("input[id='device_type']").click().type("saos")
-        cy.get("input[id='port']").click().type("10000")
+        cy.get("input[type='text']").eq(0).click().type("one-line-parser")
+        cy.get("input[type='text']").eq(1).click().type("frinx")
+        cy.get("input[type='text']").eq(2).click().type("frinx")
+        cy.get("input[type='text']").eq(3).click().type("6")
+        cy.get("input[type='text']").eq(4).click().type("saos")
+        cy.get("input[type='text']").eq(5).click().type("10000")
         cy.get("button[class='chakra-button css-taj3dd']").click()
         cy.get("button[class='chakra-button css-8pcd7y']").click()
     })
@@ -168,7 +181,7 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.visit(Cypress.env('deviceInventory'))
         cy.contains("Blueprints").click()
         cy.get("a[class='chakra-button css-8pcd7y']").click()
-        cy.get("input[id='name']").click().type("Example_Blueprint")
+        cy.get("input[class='chakra-input css-1c6j008']").click().type("Example_Blueprint")
         cy.get("textarea[class='chakra-textarea css-1eze8uz']").type("Example_Content")
         cy.get("button[class='chakra-button css-8pcd7y']").click()
         cy.contains("Example_Blueprint")
