@@ -134,6 +134,7 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.get("span[class='chakra-checkbox__control css-xxkadm']").eq(1).click()
         cy.get("button[class='chakra-button css-u1achi']").click()
         cy.get("button[class='chakra-button css-taj3dd']").contains("Cancel").click()
+        cy.wait(500)
         cy.get("button[class='chakra-button css-u1achi']").click()
         cy.get("button[class='chakra-button css-1c60fpj']").click()
         cy.visit(Cypress.env('deviceInventory'))
