@@ -1,6 +1,7 @@
 describe('Create workflow, test and delete it', () => {
   it('workflow builder', () => {
-    cy.visit('localhost/frinxui/uniflow/builder')
+    cy.visit(Cypress.env('host'))
+    cy.contains('a', 'Create').click()
     cy.get('input[name="name"]').type("test workflow")
     cy.get('input[name="description"]').clear().type("test description")
     cy.get('input[placeholder="Add Labels (press Enter to add)"]').type('TEST{enter}')
@@ -73,7 +74,8 @@ describe('Create workflow, test and delete it', () => {
   })
 
   it('save changes check', () => {
-    cy.visit('localhost/frinxui/uniflow/definitions')
+    cy.visit(Cypress.env('host'))
+    cy.contains('a', 'Explore').click()
     cy.get('input[placeholder="Search by keyword."]').type('test workflow')
     cy.contains('test workflow / 1').should('be.visible')
     cy.contains('test workflow copy / 1').should('be.visible')
@@ -83,7 +85,8 @@ describe('Create workflow, test and delete it', () => {
   })
   
   it('workflow delete', () => {
-    cy.visit('localhost/frinxui/uniflow/definitions')
+    cy.visit(Cypress.env('host'))
+    cy.contains('a', 'Explore').click()
     cy.get('input[placeholder="Search by keyword."]').type('test workflow')
     cy.get(':nth-child(1) > :nth-child(4) > .chakra-stack > .chakra-button__group > .css-1c0cdvt').click()
     cy.contains('button', 'Delete').click()
