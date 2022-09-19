@@ -1,4 +1,5 @@
 
+
 describe("master test for checking multiple device inventory settings",()=>{
 
     it("should visit the main and device page",()=>{
