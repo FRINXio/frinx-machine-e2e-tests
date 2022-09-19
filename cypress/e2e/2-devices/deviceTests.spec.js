@@ -3,14 +3,14 @@ describe("master test for checking multiple device inventory settings",()=>{
 
     it("should visit the main and device page",()=>{
 
-        cy.visit("http://localhost/frinxui")
+        cy.visit(Cypress.env('host'))
         cy.get("a[href='/frinxui/inventory']").eq(0).click()
         cy.wait(500)
         cy.get("img[alt='logo']").should("be.visible")
         cy.get("a[href='/frinxui/']").eq(0).click()
         cy.wait(500)
         cy.get("div[class=css-1q8b5yy]").contains("Device Inventory").click()
-        cy.visit("http://localhost/frinxui")
+        cy.visit(Cypress.env('host'))
         cy.get("button[class='chakra-button chakra-menu__menu-button css-1unm9xp']").click()
         cy.get("div[class='css-k2as7w']").contains("Device Inventory").click()  
     })
@@ -82,20 +82,6 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.contains("EXAMPLE").should("be.visible").click()
         cy.get("button[class='chakra-button css-8pcd7y']").click()
     })
-
-    //Crashed test vol.1
-    /*
-    After edding only labels will be changed - added/deleted. 
-
-    it("should check changes in edited device", () => {
-        cy.get("svg[class='feather feather-edit chakra-icon css-13otjrl']").eq(0).click()
-        cy.contains("In Service").should("be.visible")
-        cy.contains("NOKIA").should("be.visible")
-        cy.contains("CRI-24-Y8").should("be.visible")
-        cy.contains("192.168.01.17").should("be.visible")
-        cy.contains("EXAMPLE").should("be.visible")
-    })
-    */
 
     it("should not be able to see seetings of uninstalled device",()=>{
 
