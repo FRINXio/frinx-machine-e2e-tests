@@ -188,9 +188,9 @@ describe("master test for checking multiple device inventory settings",()=>{
     it("should check transactions and config change in Leaf01",()=>{
 
         cy.visit("http://localhost/frinxui/inventory/devices")
-        cy.get("input[placeholder='Search device']").click().type("Spine02")
+        cy.get("input[placeholder='Search device']").click().type("Leaf01")
         cy.get("button[class='chakra-button css-9560t']").click()
-        cy.wait(2000)
+        cy.wait(500)
         cy.get("span[class='chakra-text css-1a676jl']").click()
         cy.contains("Installed", {timeout:200000}).should("be.visible")
         cy.get("svg[class='feather feather-settings chakra-icon css-13otjrl']").click()
