@@ -1,5 +1,9 @@
 import '@testing-library/cypress/add-commands'
 
+Cypress.on('uncaught:exception', (err, runnable) => {
+    return false;
+  });
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
