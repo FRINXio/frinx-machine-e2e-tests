@@ -1,5 +1,11 @@
 import '@testing-library/cypress/add-commands'
 
+require('@4tw/cypress-drag-drop');
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+    return false
+})
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
