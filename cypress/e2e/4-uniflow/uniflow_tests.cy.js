@@ -129,7 +129,7 @@ describe('master test for checking UniFlow features', () => {
 		cy.get("button[class='chakra-menu__menuitem css-13c7rae']").eq(0).click()
 	})
 
-	it('try add wf to scheduled', () => {
+	it.skip('try add wf to scheduled', () => {
 		cy.get('[href="/frinxui/uniflow/definitions"]').click()
 		cy.get('input[placeholder="Search by keyword."').type('Create_loopback_')
 		cy.get("button[class='chakra-button chakra-menu__menu-button css-byrfz9']").eq(0).click()
