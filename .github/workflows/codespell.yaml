@@ -12,6 +12,7 @@ jobs:
       - name: Codespell
         uses: codespell-project/actions-codespell@master
         with:
-          ignore_words_list: Oje,inflight
+          ignore_words_list: test
+          exclude_file: package-lock.json
           check_filenames: true
           check_hidden: false
