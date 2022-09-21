@@ -60,12 +60,12 @@ describe('Create workflow, test and delete it', () => {
     cy.get('.css-1lxk9pq').should('contain', 'Workflow Saved')
   })
 
-  it('search test', () => {
+  it.skip('search test', () => {
     cy.get('input[placeholder="Search tasks"]').type('INVENTORY_install_device_by_name')
     cy.get(':nth-child(2) > .css-sglica > .chakra-heading > .css-0').should('contain','INVENTORY_install_device_by_name')
   })
 
-  it('workflow execution', () => {
+  it.skip('workflow execution', () => {
     cy.contains('button', 'Save and execute').click()
     cy.get('input[name="device_name"]').type('SAOS6_2')
     cy.contains('button', 'Execute').click()
