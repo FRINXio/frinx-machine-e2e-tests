@@ -10,7 +10,8 @@ describe('check main page of Frinx-machine', () => {
   })
 
   it('Check the main page', () => {
-    cy.findAllByText('UniFlow', { timeout: 10000000 }).should('be.visible');
-  })
+    cy.findAllByText('UniFlow', { timeout: 10000000 }).should('be.visible')
+  }
+  )
 
 })
