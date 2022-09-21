@@ -2,6 +2,8 @@
 
 describe("master test for checking multiple device inventory settings",()=>{
 
+    var deviceInventoryUrl = Cypress.env('host') + "/frinxui/inventory/devices"
+
     it("should visit the main and device page",()=>{
 
         cy.visit(Cypress.env('host'))
@@ -37,7 +39,7 @@ describe("master test for checking multiple device inventory settings",()=>{
 
     it("should search device by label and install it afterwards",()=>{
 
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
         cy.get("input[placeholder='Search device']").click().type("IOS01")
         cy.get("button[class='chakra-button css-9560t']").click()
         cy.wait(500)
@@ -47,7 +49,7 @@ describe("master test for checking multiple device inventory settings",()=>{
 
     it("should uninstall installed devices",()=>{
 
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
         cy.get("span[class='chakra-text css-1wihwec']").should("be.visible")
         cy.get("span[class='chakra-text css-1wihwec']").click({multiple:true})
         cy.contains("Installed").should("not.exist")
@@ -82,8 +84,8 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.get("button[class='chakra-button css-8pcd7y']").click()
     })
 
-    /*
-    it("should check edited device",()=>{
+    
+    it.skip("should check edited device",()=>{
         cy.visit(Cypress.env('deviceInventory'))
         cy.get("svg[class='feather feather-edit chakra-icon css-13otjrl']").eq(0).click()
         cy.wait(500)
@@ -93,15 +95,15 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.contains("192.168.01.17").should("be.visible")
         cy.contains("EXAMPLE").should("be.visible")
     })
-    */
+    
 
     it("should not be able to see seetings of uninstalled device",()=>{
 
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
         cy.get("svg[class='feather feather-settings chakra-icon css-13otjrl']").eq(0).click()
         cy.contains("GraphQL").should("be.visible")
         cy.contains("Mount parameters").should("not.exist")
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
     })
 
     it("should uninstall specific device",()=>{
@@ -113,7 +115,7 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.get("button[class='chakra-button css-taj3dd']").contains("Cancel").should("be.visible").click()
         cy.get("button[aria-label='Delete device']").click()
         cy.get("button[class='chakra-button css-1c60fpj']").contains("Delete").should("be.visible").click()
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
         cy.contains("SAOS6_2").should("not.exist")
     })
 
@@ -121,7 +123,7 @@ describe("master test for checking multiple device inventory settings",()=>{
 
         var textParameters = '{"cli":{"cli-topology:host":"sample-topology","cli-topology:port":"10003","cli-topology:password":"frinx","cli-topology:username":"frinx","cli-topology:device-type":"saos","cli-topology:journal-size":500,"cli-topology:device-version":"8","cli-topology:parsing-engine":"one-line-parser","cli-topology:transport-type":"ssh","cli-topology:dry-run-journal-size":180}}'
 
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
         cy.wait(500)
         cy.get("a[class='chakra-button css-8pcd7y']").click()
         cy.get("input[name='name']").click().type("Example_SAOS_device")
@@ -141,7 +143,7 @@ describe("master test for checking multiple device inventory settings",()=>{
 
     it("should remove example_device with delete selected button",()=>{
 
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
         cy.get("input[placeholder='Search device']").click().type("Example_SAOS_device")
         cy.get("button[class='chakra-button css-9560t']").click()
         cy.get("span[class='chakra-checkbox__control css-xxkadm']").eq(1).click()
@@ -150,12 +152,12 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.wait(500)
         cy.get("button[class='chakra-button css-u1achi']").click()
         cy.get("button[class='chakra-button css-1c60fpj']").click()
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
     })
 
     it("should add SAOS6_2 with blueprint",()=>{
 
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
         cy.get("a[class='chakra-button css-8pcd7y']").click()
         cy.get("input[name='name']").click().type("SAOS6_2")
         cy.get("select[class='chakra-select css-k7r2wc']").eq(0).select("uniconfig")
@@ -178,25 +180,25 @@ describe("master test for checking multiple device inventory settings",()=>{
 
     it("should handle adding and using blueprint",()=>{
 
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
         cy.contains("Blueprints").click()
         cy.get("a[class='chakra-button css-8pcd7y']").click()
         cy.get("input[class='chakra-input css-1c6j008']").click().type("Example_Blueprint")
         cy.get("textarea[class='chakra-textarea css-1eze8uz']").type("Example_Content")
         cy.get("button[class='chakra-button css-8pcd7y']").click()
         cy.contains("Example_Blueprint")
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
         cy.get("a[class='chakra-button css-8pcd7y']").click()
         cy.get("span[class='chakra-switch__thumb css-7roig']").click()
         cy.get("select[class='chakra-select css-k7r2wc']").eq(2).select("Example_Blueprint")
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
         cy.contains("Blueprints").click()
         cy.get("button[class='chakra-button css-gjwknl']").eq(4).click()
     })
 
     it("should check transactions and config change in Leaf01",()=>{
 
-        cy.visit(Cypress.env('deviceInventory'))
+        cy.visit(deviceInventoryUrl)
         cy.get("input[placeholder='Search device']").click().type("Leaf01")
         cy.get("button[class='chakra-button css-9560t']").click()
         cy.wait(500)
