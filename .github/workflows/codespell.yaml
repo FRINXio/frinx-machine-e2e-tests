@@ -12,6 +12,6 @@ jobs:
       - name: Codespell
         uses: codespell-project/actions-codespell@master
         with:
-          ignore_words_list: test,
+          ignore_words_list: test,inflight,Oje
           check_filenames: true
           check_hidden: false
