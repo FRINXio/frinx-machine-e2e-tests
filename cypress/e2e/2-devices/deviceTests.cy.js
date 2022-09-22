@@ -2,7 +2,7 @@
 
 describe("master test for checking multiple device inventory settings",()=>{
 
-    var deviceInventoryUrl = Cypress.env('host') + "/frinxui/inventory/devices"
+    var deviceInventoryUrl = Cypress.env('host') + "frinxui/inventory/devices"
 
     it("should visit the main and device page",()=>{
 
