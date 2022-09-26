@@ -21,9 +21,15 @@ describe('Create workflow, test and delete it', () => {
     cy.contains('button', 'Actions').click()
     cy.contains('button', 'Save workflow').click()
     cy.contains('button', 'Close').click()
-    cy.contains('Workflow Saved').should('be.visible')
+    cy.contains('Workflow Saved').should('be.visible')    
+    
+    
+    
   })
 
+  
+  
+  
   it('save as', () => {
     cy.contains('button', 'Actions').click()
     cy.contains('button', 'Save as').click()
