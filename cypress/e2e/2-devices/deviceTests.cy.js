@@ -21,20 +21,15 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.contains("IOS").click()
         cy.get("button").contains("Search").click()
         cy.wait(500)
-        cy.get("span[aria-hidden='true'").eq(3).click()
-        cy.get("span[aria-hidden='true'").eq(5).click()
-        cy.get("span[aria-hidden='true'").eq(7).click()
+        cy.get("span[aria-hidden='true'").eq(1).click()
         cy.contains("Install selected").click()
         cy.get("button").contains("Install selected").should("be.visible")
         cy.contains("Installed",{timeout:80000})
-        cy.get("span[aria-hidden='true'").eq(3).should('have.attr', 'data-disabled')
-        cy.get("span[aria-hidden='true'").eq(5).should('have.attr', 'data-disabled')
-        cy.get("span[aria-hidden='true'").eq(7).should('have.attr', 'data-disabled')
-        cy.get("button[aria-label='Delete device'").eq(2).should("have.attr", "disabled")
-        cy.get("button[aria-label='Delete device'").eq(4).should("have.attr", "disabled")
-        cy.get("button[aria-label='Delete device'").eq(6).should("have.attr", "disabled")
-        cy.wait(1000)
-        cy.get("a[aria-label='config'").eq(2).click()
+        cy.wait(500)
+        cy.get("span[aria-hidden='true'").eq(1).should('have.attr', 'data-disabled')
+        cy.get("button[aria-label='Delete device'").eq(0).should("have.attr", "disabled")
+        cy.wait(500)
+        cy.get("a[aria-label='config'").eq(0).click()
         cy.contains("Config data store").should("be.visible")
     })
 
@@ -81,14 +76,14 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.get("input[placeholder='Enter address of the device']").type("192.168.01.17")
         cy.get("input[aria-autocomplete='list']").type("EXAMPLE")
         cy.contains("EXAMPLE").should("be.visible").click()
-        cy.get("button[class='chakra-button css-8pcd7y']").click()
+        cy.get("button").contains('Save changes').click()
     })
 
-    
     it.skip("should check edited device",()=>{
+
         cy.visit(Cypress.env('deviceInventory'))
         cy.get("a[aria-label='edit']").eq(0).click()
-        cy.wait(500)
+        cy.wait(2000)
         cy.contains("In Service").should("be.visible")
         cy.contains("NOKIA").should("be.visible")
         cy.contains("CRI-24-Y8").should("be.visible")
@@ -96,7 +91,7 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.contains("EXAMPLE").should("be.visible")
     })
 
-    it("should delete specific device",()=>{
+    it.skip("should delete specific device",()=>{
 
         cy.get("input[placeholder='Search device']").type("SAOS8_1")
         cy.get("button").contains("Search").click()
@@ -110,7 +105,7 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.contains("SAOS8_1").should("not.exist")
     })
 
-    it("should add device without blueprint - frontend 1.0.18",()=>{
+    it.skip("should add device without blueprint - frontend 1.0.18",()=>{
 
         var textParameters = '{"cli":{"cli-topology:host":"sample-topology","cli-topology:port":"10003","cli-topology:password":"frinx","cli-topology:username":"frinx","cli-topology:device-type":"saos","cli-topology:journal-size":500,"cli-topology:device-version":"8","cli-topology:parsing-engine":"one-line-parser","cli-topology:transport-type":"ssh","cli-topology:dry-run-journal-size":180}}'
 
@@ -125,8 +120,9 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.get("input[name='address']").type("198.162.5.12")
         cy.get("input[placeholder='Start typing...']").type("SAOS")
         cy.contains("SAOS").click()
-        cy.get('.ace_content').type("{backspace}{backspace}")
-        cy.get(".ace_content").type(textParameters,{parseSpecialCharSequences:false})
+        cy.get('span').contains('}').click({force:true})
+        cy.get("textarea[spellcheck='false']").type("{backspace}{backspace}")
+        cy.get("textarea[spellcheck='false']").type(textParameters,{parseSpecialCharSequences:false})
         cy.get("button[type='submit']").click()
         cy.contains("Import from CSV").should("be.visible")
       })
@@ -151,13 +147,13 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.get("input[name='port']").type("{backspace}15")
         cy.get("input[placeholder='Start typing...']").type("CLI")
         cy.contains("CLI").click()
-        cy.get(".ace_content").type("{backspace}{backspace}")
-        cy.get(".ace_content").type(textParameters,{parseSpecialCharSequences:false})
+        cy.get("textarea[spellcheck='false']").type("{backspace}{backspace}")
+        cy.get("textarea[spellcheck='false']").type(textParameters,{parseSpecialCharSequences:false})
         cy.get("button[type='submit']").click()
         cy.contains("Import from CSV").should("be.visible")
     })
 
-    it("should remove example_device with delete selected button",()=>{
+    it.skip("should remove example_device with delete selected button",()=>{
 
         cy.visit(deviceInventoryUrl)
         cy.get("input[placeholder='Search device']").type("Example_SAOS_device")
@@ -175,7 +171,7 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.contains("Example_SAOS_device").should("not.exist")
     })
 
-    it("should add SAOS8_1 with blueprint",()=>{
+    it.skip("should add SAOS8_1 with blueprint",()=>{
 
         cy.visit(deviceInventoryUrl)
         cy.wait(1000)
@@ -220,7 +216,7 @@ describe("master test for checking multiple device inventory settings",()=>{
     it("should check transactions and config change in Leaf01",()=>{
 
         cy.visit(deviceInventoryUrl)
-        cy.get("input[placeholder='Search device']").type("Leaf01")
+        cy.get("input[placeholder='Search device']").type("Leaf03")
         cy.get('button').contains('Search').click()
         cy.wait(500)
         cy.get('button').contains('Install').click()
@@ -251,7 +247,7 @@ describe("master test for checking multiple device inventory settings",()=>{
         cy.get("button").contains("Revert changes").click()
         cy.contains("Transaction successfuly reverted",{timeout:100000})
         cy.wait(1000)
-        cy.get('a').contains("Leaf01").eq(0).click()
+        cy.get('a').contains("Leaf03").eq(0).click()
         cy.contains('999').should("not.exist")
     })
 
