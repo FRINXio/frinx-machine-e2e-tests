@@ -1,9 +1,9 @@
 import '@testing-library/cypress/add-commands'
-require('cypress-xpath');
-require('@4tw/cypress-drag-drop');
+require('cypress-xpath')
+require('@4tw/cypress-drag-drop')
 
 Cypress.on('uncaught:exception', (err, runnable) => {
-    return false
+  return false
 })
 
 // ***********************************************

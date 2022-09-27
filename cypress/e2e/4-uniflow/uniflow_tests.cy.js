@@ -8,7 +8,7 @@ describe('master test for checking UniFlow features', () => {
   it('workflow page', () => {
     // Check UniFlow access by menulist
     cy.xpath('/html/body/div[1]/div[1]/div[1]/button').click()
-    cy.get(`a[data-index='1'`).click()
+    cy.get('a[data-index="1"').click()
     // test
     cy.get('h1').should('include.text', 'Workflows')
 
