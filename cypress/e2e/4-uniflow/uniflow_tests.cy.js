@@ -1,7 +1,4 @@
-/// <reference types='cypress' />
 import { recurse } from 'cypress-recurse'
-// import cy from 'cypress'
-// import Cypress from 'cypress'
 
 describe('master test for checking UniFlow features', () => {
   beforeEach(() => {
