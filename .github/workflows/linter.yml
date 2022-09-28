@@ -1,24 +1,23 @@
----
 name: Lint Code Base
 
-on:
-  pull_request:
-    branches: [master, main]
+# Documentation:
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+
+on: pull_request
 
 jobs:
   build:
     name: Lint Code Base
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v2
 
       - name: Lint Code Base
-        uses: github/super-linter@v4
+        uses: docker://github/super-linter:latest
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
+          LINTER_RULES_PATH: /
