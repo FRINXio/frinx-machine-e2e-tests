@@ -2,12 +2,12 @@
 
 This repository contains e2e tests for frinx-machine helm-chart
 
-## Prerequisites:
+## Prerequisites: 
 - Kubernetes 1.19+
 - Helm 3.2.0+
 - Kubernetes cluster(e.g. minikube, kind, ...)
 
-## Testing steps:
+## Testing steps: 
 
 1. Install frinx-machine in your environment e.g
 ```
