@@ -14,6 +14,10 @@ This repository contains e2e tests for frinx-machine helm-chart
 helm repo add frinx https://FRINXio.github.io/helm-charts
 helm install frinx-machine frinx/frinx-machine --set demo-workflows.enabled=true -n frinx-e2e --create-namespace
 ```
+You can check if frinx-machine is ready with command
+```bash
+kubectl get pods -n frinx-e2e
+```
 2. Install the testing tool
 
     a) Install cypress using [npm](https://docs.cypress.io/guides/getting-started/installing-cypress#Direct-download)
