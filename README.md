@@ -12,13 +12,30 @@ This repository contains e2e tests for frinx-machine helm-chart
 1. Install frinx-machine in your environment e.g
 ```
 helm repo add frinx https://FRINXio.github.io/helm-charts
-helm install frinx-machine frinx/frinx-machine --set demo-workflows.enabled=true
+helm install frinx-machine frinx/frinx-machine --set demo-workflows.enabled=true -n frinx-e2e --create-namespace
 ```
 2. Install the testing tool
 
     a) Install cypress using [npm](https://docs.cypress.io/guides/getting-started/installing-cypress#Direct-download)
 
     b) Install [testkube](https://kubeshop.github.io/testkube/installing/)
+
+Testkube tool(just once)
+```
+wget -qO - https://repo.testkube.io/key.pub | sudo apt-key add -
+echo "deb https://repo.testkube.io/linux linux main" | sudo tee -a /etc/apt/sources.list
+sudo apt-get update
+sudo apt-get install -y testkube
+```
+Installation of testkube into cluster
+```
+kubectl create namespace cert-manager
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.crds.yaml
+helm repo add jetstack https://charts.jetstack.io
+helm install my-release --namespace cert-manager --version v1.9.1 jetstack/cert-manager
+helm repo add testkube https://kubeshop.github.io/helm-charts
+helm install --create-namespace --namespace testkube --version 1.4.5 testkube testkube/testkube
+```
 
 3. Run the tests
 
