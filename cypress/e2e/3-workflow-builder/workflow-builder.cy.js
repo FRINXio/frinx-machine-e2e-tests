@@ -1,3 +1,5 @@
+import type {} from 'cypress'
+
 describe('Create workflow, test and delete it', () => {
   it('workflow builder', () => {
     cy.visit(Cypress.env('host'))

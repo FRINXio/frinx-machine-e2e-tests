@@ -1,4 +1,5 @@
 import '@testing-library/cypress/add-commands'
+import type {} from 'cypress'
 require('cypress-xpath')
 require('@4tw/cypress-drag-drop')
 

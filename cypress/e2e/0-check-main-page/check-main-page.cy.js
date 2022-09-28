@@ -1,4 +1,5 @@
-/// <reference types="cypress" />
+/// <reference types="cypress" /> // old style - doesn't work propperly
+import type {} from 'cypress'
 
 describe('check main page of Frinx-machine', () => {
   beforeEach(() => {
