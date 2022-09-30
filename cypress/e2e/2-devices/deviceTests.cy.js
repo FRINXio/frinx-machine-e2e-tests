@@ -1,3 +1,5 @@
+/* global cy,it,describe,Cypress */
+
 describe('master test for checking multiple device inventory settings', () => {
   const deviceInventoryUrl = Cypress.env('host') + '/frinxui/inventory/devices'
 
@@ -91,26 +93,6 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.visit(deviceInventoryUrl)
     cy.wait(500)
     cy.contains('SAOS8_1').should('not.exist')
-  })
-
-  it.skip('should add device without blueprint - frontend 1.0.18', () => {
-    const textParameters = '{"cli":{"cli-topology:host":"sample-topology","cli-topology:port":"10003","cli-topology:password":"frinx","cli-topology:username":"frinx","cli-topology:device-type":"saos","cli-topology:journal-size":500,"cli-topology:device-version":"8","cli-topology:parsing-engine":"one-line-parser","cli-topology:transport-type":"ssh","cli-topology:dry-run-journal-size":180}}'
-    cy.visit(deviceInventoryUrl)
-    cy.wait(1000)
-    cy.get('a').contains('Add device').click()
-    cy.get("input[name='name']").type('Example_SAOS_device')
-    cy.get("select[name='zone']").select('uniconfig')
-    cy.get("select[name='serviceState']").select('In Service')
-    cy.get("input[name='vendor']").type('Example_vendor')
-    cy.get("input[name='model']").type('Example_model')
-    cy.get("input[name='address']").type('198.162.5.12')
-    cy.get("input[placeholder='Start typing...']").type('SAOS')
-    cy.contains('SAOS').click()
-    cy.get('span').contains('}').click({ force: true })
-    cy.get("textarea[spellcheck='false']").type('{backspace}{backspace}')
-    cy.get("textarea[wrap='off']").type(textParameters, { parseSpecialCharSequences: false })
-    cy.get("button[type='submit']").click()
-    cy.contains('Import from CSV').should('be.visible')
   })
 
   it.skip('should add device without blueprint - frontend 1.0.19', () => {

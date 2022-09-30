@@ -1,5 +1,27 @@
 {
   "devDependencies": {
-    "@testing-library/cypress": "^8.0.3"
-  }
+    "@testing-library/cypress": "^8.0.3",
+    "eslint": "^8.24.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  },
+  "name": "frinx-machine-e2e-tests",
+  "description": "This repository contains e2e tests for frinx-machine helm-chart",
+  "version": "1.0.0",
+  "main": "cypress.config.js",
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FRINXio/frinx-machine-e2e-tests.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FRINXio/frinx-machine-e2e-tests/issues"
+  },
+  "homepage": "https://github.com/FRINXio/frinx-machine-e2e-tests#readme"
 }

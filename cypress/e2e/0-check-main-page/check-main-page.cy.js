@@ -1,3 +1,5 @@
+/* global cy,it,describe,Cypress,beforeEach */
+
 /// <reference types="cypress" />
 
 describe('check main page of Frinx-machine', () => {

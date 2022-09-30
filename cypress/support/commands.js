@@ -1,7 +1,13 @@
+/* global Cypress */
+
 import '@testing-library/cypress/add-commands'
 
+/* eslint n/handle-callback-err: "error" */
+
 Cypress.on('uncaught:exception', (err, runnable) => {
-  return false
+  if (err.message.includes('apiFetch')) {
+    return false
+  }
 })
 
 // ***********************************************
