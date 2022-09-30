@@ -1,26 +1,27 @@
 import { recurse } from 'cypress-recurse'
+import type {} from 'cypress'
 
-describe('master test for checking UniFlow features', () => {
+describe('master test for checking workflow manager features', () => {
   beforeEach(() => {
     cy.visit(Cypress.env('host'))
   })
 
   it('workflow page', () => {
-    // Check UniFlow access by menulist
+    // Check workflow manager access by menulist
     cy.xpath('/html/body/div[1]/div[1]/div[1]/button').click()
     cy.get('a[data-index="1"').click()
     // test
     cy.get('h1').should('include.text', 'Workflows')
 
-    // Check UniFlow access by dashboard link
+    // Check workflow manager access by dashboard link
     cy.visit(Cypress.env('host'))
-    cy.contains('a', 'UniFlow').click()
+    cy.contains('a', 'WorkFlow Manager').click()
     // test
     cy.get('h1').should('include.text', 'Workflows')
   })
 
   it('filter by label', () => {
-    cy.get('[href=\'/frinxui/uniflow/definitions\']').click()
+    cy.get('[href=\'/frinxui/workflow-manager/definitions\']').click()
     cy.url().should('include', 'definitions')
 
     cy.get('input[placeholder=\'Search by label.\'').type('CLI{enter}')
@@ -67,7 +68,7 @@ describe('master test for checking UniFlow features', () => {
   })
 
   it('filter by keyword', () => {
-    cy.get('[href=\'/frinxui/uniflow/definitions\']').click()
+    cy.get('[href=\'/frinxui/workflow-manager/definitions\']').click()
     cy.url().should('include', 'definitions')
     cy.get('input[placeholder=\'Search by keyword.\'').type('Create_loopback')
     cy.wait(300)
@@ -109,7 +110,7 @@ describe('master test for checking UniFlow features', () => {
   })
 
   it('wf install specific device by name', () => {
-    cy.visit(`${Cypress.env('host')}frinxui/uniflow/definitions`)
+    cy.visit(`${Cypress.env('host')}frinxui/workflow-manager/definitions`)
     cy.get('input[placeholder=\'Search by keyword.\'').type('Install_device_by_')
     cy.wait(300)
     cy.xpath('/html/body/div[1]/div[2]/div[2]/table/tbody/tr[2]/td[4]/div/div/button[2]').click()
@@ -120,7 +121,7 @@ describe('master test for checking UniFlow features', () => {
   })
 
   it('try add wf to favourite', () => {
-    cy.get('[href=\'/frinxui/uniflow/definitions\']').click()
+    cy.get('[href=\'/frinxui/workflow-manager/definitions\']').click()
     cy.wait(500)
     cy.get('button[aria-haspopup=\'menu\']').eq(2).click()
     cy.contains('button', 'Add to favourites').click()
@@ -136,7 +137,7 @@ describe('master test for checking UniFlow features', () => {
   })
 
   it.skip('try add wf to scheduled', () => {
-    cy.get('[href=\'/frinxui/uniflow/definitions\']').click()
+    cy.get('[href=\'/frinxui/workflow-manager/definitions\']').click()
     cy.get('input[placeholder=\'Search by keyword.\'').type('Create_loopback_')
     cy.get('button[aria-haspopup=\'menu\']').eq(2).click()
     cy.contains('button', 'Create schedule').click()
@@ -157,7 +158,7 @@ describe('master test for checking UniFlow features', () => {
     cy.get('.ace_content').type('{backspace}{backspace}')
     cy.get('.ace_content').type(wfContent, { parseSpecialCharSequences: false })
     cy.xpath('/html/body/div[4]/div[4]/div/section/footer/div/button[1]').click()
-    cy.get('[href=\'/frinxui/uniflow/scheduled\']').click()
+    cy.get('[href=\'/frinxui/workflow-manager/scheduled\']').click()
     cy.wait(300)
 
     // test
@@ -253,7 +254,7 @@ describe('master test for checking UniFlow features', () => {
     cy.xpath('/html/body/div[1]/div[2]/div/div/div/form/div[6]/div/div/button').click()
     cy.xpath('/html/body/div[1]/div[2]/div/div/div/form/div[8]/button').click()
     cy.url().should('include', 'builder')
-    cy.get('[href=\'/frinxui/uniflow/definitions\']').click()
+    cy.get('[href=\'/frinxui/workflow-manager/definitions\']').click()
     cy.get('input[placeholder=\'Search by keyword.\'').type('test_name_001')
     // test
     cy.get('tbody tr').should(($tr) => {
