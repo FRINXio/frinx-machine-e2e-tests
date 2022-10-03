@@ -25,11 +25,13 @@ helm install frinx-machine frinx/frinx-machine --set demo-workflows.enabled=true
 For npm
 ```
 kubectl port-forward svc/krakend 8080:80
+npm install
 npx cypress run --env host=localhost:8080
 ```
 
 For testkube
 ```
 kubectl testkube create test --git-uri https://github.com/FRINXio/frinx-machine-e2e-tests.git --git-branch main --name frinx-e2e --type cypress/project
+npm install
 kubectl testkube run test frinx-e2e -f
 ```
