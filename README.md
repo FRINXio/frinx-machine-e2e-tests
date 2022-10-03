@@ -45,7 +45,6 @@ helm install --create-namespace --namespace testkube --version 1.4.5 testkube te
 
 For npm
 ```bash
-kubectl port-forward svc/krakend 8080:80
 npm install
 kubectl port-forward -n frinx-e2e svc/krakend 8080:8080
 npx cypress run --env host=localhost:8080
@@ -54,6 +53,5 @@ npx cypress run --env host=localhost:8080
 For testkube
 ```bash
 kubectl testkube create test --git-uri https://github.com/FRINXio/frinx-machine-e2e-tests.git --git-branch main --name frinx-e2e --type cypress/project
-npm install
 kubectl testkube run test frinx-e2e -f
 ```
