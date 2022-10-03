@@ -2,7 +2,7 @@
 
 import '@testing-library/cypress/add-commands'
 
-/*eslint handle-callback-err: "error"*/
+/* eslint handle-callback-err: "error" */
 
 Cypress.on('uncaught:exception', (err, runnable) => {
   if (err.message.includes('apiFetch')) {
