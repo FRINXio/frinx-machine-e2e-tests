@@ -1,6 +1,6 @@
 /* global Cypress */
 
-/* eslint n/handle-callback-err:"error" */
+/* eslint node/handle-callback-err:"error" */
 
 Cypress.on('uncaught:exception', (err, runnable) => {
   // we expect a 3rd party library error with message 'list not defined'
