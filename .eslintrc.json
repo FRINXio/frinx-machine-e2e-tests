@@ -12,6 +12,7 @@
         "ecmaVersion": "latest"
     },
     "rules": {
-        "jest/expect-expect": "off"
+        "jest/expect-expect": "off",
+        "no-duplicate-case": "error"
     }
 }
