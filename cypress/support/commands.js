@@ -8,6 +8,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   if (err.message.includes('apiFetch')) {
     return false
   }
+
 })
 
 // ***********************************************
