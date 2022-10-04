@@ -1,7 +1,7 @@
 /* global cy,it,describe,Cypress */
 
 describe('master test for checking multiple device inventory settings', () => {
-  const deviceInventoryUrl = Cypress.env('host') + '/frinxui/inventory/devices'
+  const deviceInventoryUrl = Cypress.env('host') + 'frinxui/inventory/devices'
 
   it('should visit the main and device page', () => {
     cy.visit(Cypress.env('host'))
