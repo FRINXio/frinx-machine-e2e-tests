@@ -2,6 +2,8 @@
 
 import '@testing-library/cypress/add-commands'
 
+require('@4tw/cypress-drag-drop')
+
 /* eslint handle-callback-err: "error" */
 
 Cypress.on('uncaught:exception', (err, runnable) => {
