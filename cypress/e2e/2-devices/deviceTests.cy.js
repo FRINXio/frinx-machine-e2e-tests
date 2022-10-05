@@ -21,7 +21,7 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.get("span[aria-hidden='true'").eq(1).click()
     cy.contains('Install selected').click()
     cy.get('button').contains('Install selected').should('be.visible')
-    cy.contains('Installed', { timeout: 80000 })
+    cy.contains('Installed', { timeout: 600000 })
     cy.wait(1000)
     cy.get("span[aria-hidden='true'").eq(1).should('have.attr', 'data-disabled')
     cy.get("button[aria-label='Delete device'").eq(0).should('have.attr', 'disabled')
@@ -36,7 +36,7 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.get('button').contains('Search').click()
     cy.wait(500)
     cy.get('button').contains('Install').click()
-    cy.contains('Installed', { timeout: 30000 })
+    cy.contains('Installed', { timeout: 600000 })
   })
 
   it('should uninstall installed devices', () => {
@@ -45,6 +45,7 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.get('.css-1urtp3g').click({ multiple: true })
     cy.contains('Installed').should('not.exist', { timeout: 10000 })
   })
+
   it('should check if added labe/name can be removed', () => {
     cy.contains('Filter by labels').click()
     cy.contains('XR').click()
@@ -62,6 +63,7 @@ describe('master test for checking multiple device inventory settings', () => {
 
   it('should edit chosen device', () => {
     cy.get("a[aria-label='edit']").eq(0).click()
+    cy.wait(500)
     cy.get("select[name='serviceState']").select('In Service')
     cy.get("input[placeholder='Enter vendor of the device']").type('NOKIA')
     cy.get("input[placeholder='Enter model of the device']").type('CRI-24-Y8')
@@ -72,17 +74,17 @@ describe('master test for checking multiple device inventory settings', () => {
   })
 
   it.skip('should check edited device', () => {
-    cy.visit(Cypress.env('deviceInventory'))
+    cy.visit(deviceInventoryUrl)
     cy.get("a[aria-label='edit']").eq(0).click()
-    cy.wait(1000)
-    cy.contains('In Service').should('be.visible')
-    cy.contains('NOKIA').should('be.visible')
-    cy.contains('CRI-24-Y8').should('be.visible')
-    cy.contains('192.168.01.17').should('be.visible')
+    cy.wait(500)
+    cy.get('input').contains('NOKIA').should('be.visible')
+    cy.get('input').contains('CRI-24-Y8').should('be.visible')
+    cy.get('input').contains('192.168.01.17').should('be.visible')
     cy.contains('EXAMPLE').should('be.visible')
   })
 
-  it.skip('should delete specific device', () => {
+  it('should delete specific device', () => {
+    cy.visit(deviceInventoryUrl)
     cy.get("input[placeholder='Search device']").type('SAOS8_1')
     cy.get('button').contains('Search').click()
     cy.wait(500)
@@ -95,36 +97,44 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.contains('SAOS8_1').should('not.exist')
   })
 
-  it.skip('should add device without blueprint - frontend 1.0.19', () => {
-    const textParameters = '{"cli":{"cli-topology:host":"sample-topology","cli-topology:port":"10003","cli-topology:password":"frinx","cli-topology:username":"frinx","cli-topology:device-type":"saos","cli-topology:journal-size":500,"cli-topology:device-version":"8","cli-topology:parsing-engine":"one-line-parser","cli-topology:transport-type":"ssh","cli-topology:dry-run-journal-size":180}}'
-    cy.visit(deviceInventoryUrl)
-    cy.wait(1000)
-    cy.get('a').contains('Add device').click()
-    cy.get("input[placeholder='R1']").type('R1')
-    cy.get("select[name='zoneId']").select('uniconfig')
-    cy.get("select[name='serviceState']").select('In Service')
-    cy.get("input[name='vendor']").type('Huawei')
-    cy.get("input[name='model']").type('CR2-15P')
-    cy.get("input[name='deviceType']").type('IOSXR')
-    cy.get("input[name='version']").type('5.2')
-    cy.get("input[name='username']").type('cisco123')
+  function setAdditionalDeviceData () {
+    const textParameters = '{"cli":{"cli-topology:host":"sample-topology","cli-topology:port":"10000","cli-topology:password":"frinx","cli-topology:username":"frinx","cli-topology:device-type":"saos","cli-topology:journal-size":500,"cli-topology:device-version":"8","cli-topology:parsing-engine":"one-line-parser","cli-topology:transport-type":"ssh","cli-topology:dry-run-journal-size":180}}'
     cy.get("input[name='password']").type('cisco123')
-    cy.get("input[name='address']").type('192.168.0.1')
-    cy.get("input[name='port']").type('{backspace}15')
-    cy.get("input[placeholder='Start typing...']").type('CLI')
-    cy.contains('CLI').click()
+    cy.get("input[placeholder='Start typing...']").type('SAOS')
+    cy.contains('SAOS').click()
+    cy.contains('Add').click()
+    cy.get('span').contains('}').click({ force: true })
     cy.get("textarea[spellcheck='false']").type('{backspace}{backspace}')
     cy.get("textarea[wrap='off']").type(textParameters, { parseSpecialCharSequences: false })
     cy.get("button[type='submit']").click()
     cy.contains('Import from CSV').should('be.visible')
+  }
+
+  it('should add device without blueprint', () => {
+    cy.visit(deviceInventoryUrl)
+    cy.wait(1000)
+    cy.get('a').contains('Add device').click()
+    cy.wait(1000)
+    cy.get("input[placeholder='R1']").type('Example_SAOS_device')
+    cy.get("select[name='zoneId']").select('uniconfig')
+    cy.get("select[name='serviceState']").select('In Service')
+    cy.get("input[name='vendor']").type('Huawei')
+    cy.get("input[name='model']").type('CR2-15P')
+    cy.get("input[name='deviceType']").type('SAOS')
+    cy.get("input[name='version']").type('5.2')
+    cy.get("input[name='username']").type('cisco123')
+    cy.get("input[name='address']").type('192.168.0.1')
+    cy.get("input[name='port']").type('{backspace}15')
+    setAdditionalDeviceData()
   })
 
-  it.skip('should remove example_device with delete selected button', () => {
+  it('should remove example_device with delete selected button', () => {
     cy.visit(deviceInventoryUrl)
     cy.get("input[placeholder='Search device']").type('Example_SAOS_device')
     cy.get('button').contains('Search').click()
     cy.wait(500)
     cy.get("span[aria-hidden='true'").eq(1).click()
+    cy.wait(500)
     cy.get('button').contains('Delete selected').click()
     cy.get('button').contains('Cancel').click()
     cy.wait(500)
@@ -154,6 +164,19 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.get('button').contains('Save variables').click()
     cy.wait(1000)
     cy.get('button').contains('Add device').click()
+  })
+
+  it('should add SAOS8_1 without blueprint', () => {
+    cy.visit(deviceInventoryUrl)
+    cy.wait(1000)
+    cy.get('a').contains('Add device').click()
+    cy.wait(1000)
+    cy.get("input[placeholder='R1']").type('SAOS8_1')
+    cy.get("select[name='zoneId']").select('uniconfig')
+    cy.get("select[name='serviceState']").select('In Service')
+    cy.get("input[name='deviceType']").type('SAOS')
+    cy.get("input[name='version']").type('5.2')
+    setAdditionalDeviceData()
   })
 
   it('should handle adding and using blueprint', () => {
