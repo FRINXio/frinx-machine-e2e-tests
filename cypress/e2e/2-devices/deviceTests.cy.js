@@ -169,6 +169,7 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.visit(deviceInventoryUrl)
     cy.wait(1000)
     cy.get('a').contains('Add device').click()
+    cy.wait(2000)
     cy.get("span[aria-hidden='true'").eq(2).click()
     cy.get('select').eq(2).select('Example_Blueprint')
     cy.visit(deviceInventoryUrl)
