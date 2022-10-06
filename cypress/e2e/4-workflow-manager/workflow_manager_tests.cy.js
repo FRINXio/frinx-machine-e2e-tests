@@ -143,7 +143,7 @@ describe('master test for checking workflow manager features', () => {
     cy.get('button[aria-haspopup=\'menu\']').eq(2).click()
     cy.contains('button', 'Create schedule').click()
 
-    // generate cron tab value -> +2 min from now
+    // generate cron tab value -> +1 min from now
     const now = new Date()
     const month = now.getMonth() + 1
     const day = now.getDate()
