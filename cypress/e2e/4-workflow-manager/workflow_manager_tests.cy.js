@@ -1,4 +1,4 @@
-/* global cy,it,describe,beforeEach,Cypress */
+/* global cy,it,describe,beforeEach,Cypress,expect */
 
 import { recurse } from 'cypress-recurse'
 
