@@ -1,5 +1,6 @@
+/* global cy,it,describe,beforeEach,Cypress */
+
 import { recurse } from 'cypress-recurse'
-import type {} from 'cypress'
 
 describe('master test for checking workflow manager features', () => {
   beforeEach(() => {
