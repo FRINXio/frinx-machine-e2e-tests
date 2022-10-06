@@ -1,15 +1,9 @@
-/* global Cypress */
-
 import '@testing-library/cypress/add-commands'
 
-require('@4tw/cypress-drag-drop')
-
-/* eslint handle-callback-err: "error" */
+require('@4tw/cypress-drag-drop');
 
 Cypress.on('uncaught:exception', (err, runnable) => {
-  if (err.message.includes('apiFetch')) {
     return false
-  }
 })
 
 // ***********************************************

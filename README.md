@@ -45,7 +45,6 @@ helm install --create-namespace --namespace testkube --version 1.4.5 testkube te
 
 For npm
 ```bash
-npm install
 kubectl port-forward -n frinx-e2e svc/krakend 8080:8080
 npx cypress run --env host=localhost:8080
 ```
