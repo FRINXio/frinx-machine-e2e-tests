@@ -102,7 +102,7 @@ describe('Create workflow, test and delete it', () => {
     cy.contains('button', 'Delete').click()
     cy.get('input[placeholder="Search by keyword."]').type('test workflow')
     cy.get('a[href="/frinxui/uniflow/builder/test workflow copy/1"]').click()
-    
+  })
   function deleteButton () {
     cy.contains('button', 'Actions').click()
     cy.contains('button', 'Delete workflow').click()
