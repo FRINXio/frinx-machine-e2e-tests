@@ -25,7 +25,6 @@ describe('master test for checking workflow manager features', () => {
     cy.get('[href=\'/frinxui/workflow-manager/definitions\']').click()
     cy.url().should('include', 'definitions')
 
-    /*
     cy.get('input[placeholder=\'Search by label.\'').type('CLI{enter}')
     cy.wait(300)
 
@@ -37,17 +36,15 @@ describe('master test for checking workflow manager features', () => {
 
     // delete
     cy.contains('p', 'CLI').click()
-    */
 
     cy.get('input[placeholder=\'Search by label.\'').type('BASICS{enter}')
     cy.wait(300)
+    
     // test
     cy.get('tbody').find('tr')
       .then((row) => {
-        expect(row.length).eq(4) // original was 10
+        expect(row.length).eq(10)
       })
-
-    /*
     cy.contains('button', 'Next').click()
     cy.wait(300)
     cy.get('tbody').find('tr')
@@ -55,7 +52,6 @@ describe('master test for checking workflow manager features', () => {
         expect(row.length).eq(3)
       })
 
-    */
     // delete
     cy.contains('p', 'BASICS').click()
 
@@ -153,15 +149,13 @@ describe('master test for checking workflow manager features', () => {
     cy.xpath('/html/body/div[1]/div[2]/div[2]/table/tbody/tr/td[4]/div/div/button[2]').click()
     cy.wait(1000)
     cy.get('input[name=\'device_id\'').type('Leaf01')
-    // cy.get('input').contains('device_id').type('Leaf01')
     cy.get('input[name=\'loopback_id\'').type('70')
-    // cy.get('input').contains('loopback_id').type('70')
     cy.contains('button', 'Execute').click()
     cy.contains('Executed workflow in detail', { timeout: 10000 }).click({})
     cy.contains('div', 'Status', { timeout: 1200000 }).should('contain', 'COMPLETED')
   })
 
-  it.skip('try add wf to scheduled', () => {
+  it('try add wf to scheduled', () => {
     cy.get('[href=\'/frinxui/workflow-manager/definitions\']').click()
     cy.get('input[placeholder=\'Search by keyword.\'').type('Create_loopback_')
     cy.get('button[aria-haspopup=\'menu\']').eq(2).click()
@@ -171,7 +165,7 @@ describe('master test for checking workflow manager features', () => {
     const now = new Date()
     const month = now.getMonth() + 1
     const day = now.getDate()
-    const hour = now.getHours()
+    const hour = now.getHours() -2
     const minute = now.getMinutes() + 1
     const crontabValue = minute + ' ' + hour + ' ' + day + ' ' + month + ' ' + '*'
 
@@ -211,7 +205,7 @@ describe('master test for checking workflow manager features', () => {
         expect(loopbackId).eq('"789"')
       })
 
-    function reloadPageUntil (limit, timeout, status) {
+    function reloadPageUntil (status, limit, timeout) {
       recurse(
         function () {
           return cy.xpath('/html/body/div[1]/div[2]/div/table/tbody/tr[1]/td[3]').invoke('text')
@@ -220,7 +214,7 @@ describe('master test for checking workflow manager features', () => {
           return s === status
         },
         {
-          limit,
+          limit: limit,
           delay: 500,
           timeout,
           log: false,
