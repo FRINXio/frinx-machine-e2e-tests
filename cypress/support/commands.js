@@ -2,6 +2,7 @@
 
 import '@testing-library/cypress/add-commands'
 
+require('cypress-xpath')
 require('@4tw/cypress-drag-drop')
 
 /* eslint handle-callback-err: "error" */
