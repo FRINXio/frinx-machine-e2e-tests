@@ -39,7 +39,7 @@ describe('master test for checking workflow manager features', () => {
 
     cy.get('input[placeholder=\'Search by label.\'').type('BASICS{enter}')
     cy.wait(300)
-    
+
     // test
     cy.get('tbody').find('tr')
       .then((row) => {
@@ -165,7 +165,7 @@ describe('master test for checking workflow manager features', () => {
     const now = new Date()
     const month = now.getMonth() + 1
     const day = now.getDate()
-    const hour = now.getHours() -2
+    const hour = now.getHours() - 2
     const minute = now.getMinutes() + 1
     const crontabValue = minute + ' ' + hour + ' ' + day + ' ' + month + ' ' + '*'
 
@@ -214,7 +214,7 @@ describe('master test for checking workflow manager features', () => {
           return s === status
         },
         {
-          limit: limit,
+          limit,
           delay: 500,
           timeout,
           log: false,
