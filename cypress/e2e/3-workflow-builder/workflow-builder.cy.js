@@ -66,12 +66,12 @@ describe('Create workflow, test and delete it', () => {
     clickOnButtons()
   })
 
-  it.skip('search test', () => {
+  it('search test', () => {
     cy.get('input[placeholder="Search tasks"]').type('INVENTORY_install_device_by_name')
     cy.get('input[placeholder="Search tasks"]').parent().next().should('contain', 'Install device by device name')
   })
 
-  it.skip('workflow execution', () => {
+  it('workflow execution', () => {
     cy.contains('button', 'Save and execute').click()
     cy.get('input[name="device_name"]').type('SAOS6_2')
     cy.contains('button', 'Execute').click()
