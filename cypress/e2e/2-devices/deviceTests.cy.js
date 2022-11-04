@@ -30,7 +30,7 @@ describe('master test for checking multiple device inventory settings', () => {
 
   it('should search device by label and install it afterwards', () => {
     cy.visit(deviceInventoryUrl)
-    cy.get("input[placeholder='Search device']").type('IOS01')
+    cy.get("input[placeholder='Search device']").type('IOS02')
     cy.get('button').contains('Search').click()
     cy.wait(500)
     cy.get('button').contains('Install').click()
@@ -65,20 +65,20 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.get("select[name='serviceState']").select('In Service')
     cy.get("input[placeholder='Enter vendor of the device']").type('NOKIA')
     cy.get("input[placeholder='Enter model of the device']").type('CRI-24-Y8')
-    cy.get("input[placeholder='Enter address of the device']").type('192.168.01.17')
+    cy.get("input[placeholder='Enter address of the device']").type('192.168.1.17')
     cy.get("input[aria-autocomplete='list']").type('EXAMPLE')
     cy.contains('EXAMPLE').should('be.visible').click()
     cy.get('button').contains('Save changes').click()
   })
 
   // toto ok???
-  it.skip('should check edited device', () => {
+  it('should check edited device', () => {
     cy.visit(deviceInventoryUrl)
     cy.get("a[aria-label='edit']").eq(0).click()
     cy.wait(500)
-    cy.get('input').contains('NOKIA').should('be.visible')
-    cy.get('input').contains('CRI-24-Y8').should('be.visible')
-    cy.get('input').contains('192.168.01.17').should('be.visible')
+    cy.get("input[name='vendor']").should('have.value', 'NOKIA');
+    cy.get("input[name='model']").should('have.value', 'CRI-24-Y8');
+    cy.get("input[name='address']").should('have.value', '192.168.1.17')
     cy.contains('EXAMPLE').should('be.visible')
   })
 
