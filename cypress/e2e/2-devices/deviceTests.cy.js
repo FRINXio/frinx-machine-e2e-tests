@@ -76,8 +76,8 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.visit(deviceInventoryUrl)
     cy.get("a[aria-label='edit']").eq(0).click()
     cy.wait(500)
-    cy.get("input[name='vendor']").should('have.value', 'NOKIA');
-    cy.get("input[name='model']").should('have.value', 'CRI-24-Y8');
+    cy.get("input[name='vendor']").should('have.value', 'NOKIA')
+    cy.get("input[name='model']").should('have.value', 'CRI-24-Y8')
     cy.get("input[name='address']").should('have.value', '192.168.1.17')
     cy.contains('EXAMPLE').should('be.visible')
   })
