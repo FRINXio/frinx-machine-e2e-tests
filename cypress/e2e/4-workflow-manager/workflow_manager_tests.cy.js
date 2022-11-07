@@ -52,12 +52,12 @@ describe('master test for checking workflow manager features', () => {
     // delete
     cy.contains('p', 'BASICS').click()
 
-    // // set 2 unlogical labels
-    // cy.get('input[placeholder=\'Search by label.\'').type('CLI{enter}').type('L2VPN{enter}')
-    // cy.wait(300)
-    // // test
-    // cy.contains('No workflows match your search params').should('be.visible')
-    // cy.get('button[aria-label=\'Clear\']').click()
+    // set 2 unlogical labels
+    cy.get('input[placeholder=\'Search by label.\'').type('CLI{enter}').type('L2VPN{enter}')
+    cy.wait(300)
+    // test
+    cy.contains('No workflows match your search params').should('be.visible')
+    cy.get('button[aria-label=\'Clear\']').click()
   })
 
   it('filter by keyword', () => {
@@ -96,7 +96,6 @@ describe('master test for checking workflow manager features', () => {
     cy.xpath('/html/body/div[1]/div[2]/div[2]/table/tbody/tr[1]/td[4]/div/div/button[2]').click()
     cy.get('input[name="labels"]').type('CREATE_LOOPBACK_DEMO')
     cy.contains('button', 'Execute').click()
-    // cy.contains('a', '-', { timeout: 10000 }).click()
     cy.contains('Executed workflow in detail').click()
     // test
     cy.contains('div', 'Status', { timeout: 1200000 }).should('contain', 'COMPLETED')
