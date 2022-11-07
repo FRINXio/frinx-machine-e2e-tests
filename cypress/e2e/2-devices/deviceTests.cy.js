@@ -5,8 +5,6 @@ describe('master test for checking multiple device inventory settings', () => {
 
   it('should visit the main and device page', () => {
     cy.visit(Cypress.env('host'))
-    cy.get("a[href='/frinxui/inventory']").contains('Explore').click()
-    cy.visit(Cypress.env('host'))
     cy.get("button[aria-haspopup='menu']").click()
     cy.wait(500)
     cy.get("a[data-index='2']").click()
@@ -32,7 +30,7 @@ describe('master test for checking multiple device inventory settings', () => {
 
   it('should search device by label and install it afterwards', () => {
     cy.visit(deviceInventoryUrl)
-    cy.get("input[placeholder='Search device']").type('IOS01')
+    cy.get("input[placeholder='Search device']").type('IOS02')
     cy.get('button').contains('Search').click()
     cy.wait(500)
     cy.get('button').contains('Install').click()
@@ -63,23 +61,23 @@ describe('master test for checking multiple device inventory settings', () => {
 
   it('should edit chosen device', () => {
     cy.get("a[aria-label='edit']").eq(0).click()
-    cy.wait(500)
+    cy.wait(3000)
     cy.get("select[name='serviceState']").select('In Service')
     cy.get("input[placeholder='Enter vendor of the device']").type('NOKIA')
     cy.get("input[placeholder='Enter model of the device']").type('CRI-24-Y8')
-    cy.get("input[placeholder='Enter address of the device']").type('192.168.01.17')
+    cy.get("input[placeholder='Enter address of the device']").type('192.168.1.17')
     cy.get("input[aria-autocomplete='list']").type('EXAMPLE')
     cy.contains('EXAMPLE').should('be.visible').click()
     cy.get('button').contains('Save changes').click()
   })
 
-  it.skip('should check edited device', () => {
+  it('should check edited device', () => {
     cy.visit(deviceInventoryUrl)
     cy.get("a[aria-label='edit']").eq(0).click()
     cy.wait(500)
-    cy.get('input').contains('NOKIA').should('be.visible')
-    cy.get('input').contains('CRI-24-Y8').should('be.visible')
-    cy.get('input').contains('192.168.01.17').should('be.visible')
+    cy.get("input[name='vendor']").should('have.value', 'NOKIA')
+    cy.get("input[name='model']").should('have.value', 'CRI-24-Y8')
+    cy.get("input[name='address']").should('have.value', '192.168.1.17')
     cy.contains('EXAMPLE').should('be.visible')
   })
 
@@ -146,23 +144,21 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.contains('Example_SAOS_device').should('not.exist')
   })
 
-  it.skip('should add SAOS8_1 with blueprint', () => {
+  it('should add SAOS8_1 with blueprint', () => {
     cy.visit(deviceInventoryUrl)
     cy.wait(1000)
     cy.get('a').contains('Add device').click()
     cy.get("input[name='name']").type('SAOS8_1')
-    cy.get("select[name='zone']").select('uniconfig')
+    cy.get("select[name='zoneId']").select('uniconfig')
     cy.get("select[name='serviceState']").select('In Service')
     cy.get("span[aria-hidden='true'").eq(2).click()
-    cy.get('select').eq(2).select('cli_saos_device')
-    cy.get("input[type='text']").eq(0).type('one-line-parser')
-    cy.get("input[type='text']").eq(1).type('frinx')
-    cy.get("input[type='text']").eq(2).type('frinx')
-    cy.get("input[type='text']").eq(3).type('8')
-    cy.get("input[type='text']").eq(4).type('saos')
-    cy.get("input[type='text']").eq(5).type('10000')
-    cy.get('button').contains('Save variables').click()
-    cy.wait(1000)
+    cy.get('select').eq(3).select('cli_saos_device')
+    cy.get("input[name='address']").eq(0).type('sample-topology')
+    cy.get("input[name='username']").type('frinx')
+    cy.get("input[name='password']").type('frinx')
+    cy.get("input[name='version']").type('8')
+    cy.get("input[name='deviceType']").type('saos')
+    cy.get("input[name='port']").type('10000')
     cy.get('button').contains('Add device').click()
   })
 
@@ -194,7 +190,7 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.get('a').contains('Add device').click()
     cy.wait(2000)
     cy.get("span[aria-hidden='true'").eq(2).click()
-    cy.get('select').eq(2).select('Example_Blueprint')
+    cy.get('select').eq(3).select('Example_Blueprint')
     cy.visit(deviceInventoryUrl)
     cy.contains('Blueprints').click()
     cy.get("button[aria-label='Delete blueprint']").eq(4).click()

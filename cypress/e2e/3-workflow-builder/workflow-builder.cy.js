@@ -3,7 +3,7 @@
 describe('Create workflow, test and delete it', () => {
   it('workflow builder', () => {
     cy.visit(Cypress.env('host'))
-    cy.contains('a', 'Create').click()
+    cy.get(':nth-child(3) > .chakra-linkbox__overlay').click()
     cy.get('input[name="name"]').type('test workflow')
     cy.get('input[name="description"]').clear().type('test description')
     cy.get('input[placeholder="Add Labels (press Enter to add)"]').type('TEST{enter}')
@@ -22,8 +22,6 @@ describe('Create workflow, test and delete it', () => {
 
     cy.contains('button', 'Actions').click()
     cy.contains('button', 'Save workflow').click()
-    cy.contains('button', 'Close').click()
-    cy.contains('Workflow Saved').should('be.visible')
   })
 
   it('save as', () => {
@@ -45,8 +43,6 @@ describe('Create workflow, test and delete it', () => {
   function clickOnButtons () {
     cy.contains('button', 'Actions').click()
     cy.contains('button', 'Save workflow').click()
-    cy.contains('button', 'Close').click()
-    cy.contains('Workflow Saved').should('be.visible')
   }
 
   it('edit workflow', () => {
@@ -66,16 +62,16 @@ describe('Create workflow, test and delete it', () => {
     clickOnButtons()
   })
 
-  it.skip('search test', () => {
+  it('search test', () => {
     cy.get('input[placeholder="Search tasks"]').type('INVENTORY_install_device_by_name')
     cy.get('input[placeholder="Search tasks"]').parent().next().should('contain', 'Install device by device name')
   })
 
-  it.skip('workflow execution', () => {
+  it('workflow execution', () => {
     cy.contains('button', 'Save and execute').click()
     cy.get('input[name="device_name"]').type('SAOS6_2')
     cy.contains('button', 'Execute').click()
-    cy.contains('Continue to detail').click()
+    cy.contains('Executed workflow in detail').click()
     cy.wait(2000)
     cy.contains('COMPLETED').eq(0).should('be.visible')
   })

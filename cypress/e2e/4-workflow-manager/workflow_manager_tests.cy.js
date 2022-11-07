@@ -7,17 +7,14 @@ describe('master test for checking workflow manager features', () => {
     cy.visit(Cypress.env('host'))
   })
 
-  it('workflow page', () => {
-    // Check workflow manager access by menulist
+  it('Check workflow manager access by menulist', () => {
     cy.xpath('/html/body/div[1]/div[1]/div[1]/button').click()
     cy.get('a[data-index="1"').click()
-    // test
     cy.get('h1').should('include.text', 'Workflows')
+  })
 
-    // Check workflow manager access by dashboard link
-    cy.visit(Cypress.env('host'))
+  it('Check workflow manager access by dashboard link', () => {
     cy.contains('a', 'Workflow manager').click()
-    // test
     cy.get('h1').should('include.text', 'Workflows')
   })
 
@@ -34,7 +31,7 @@ describe('master test for checking workflow manager features', () => {
         expect(row.length).eq(6)
       })
 
-    // delete
+    // delete tag
     cy.contains('p', 'CLI').click()
 
     cy.get('input[placeholder=\'Search by label.\'').type('BASICS{enter}')
@@ -56,7 +53,6 @@ describe('master test for checking workflow manager features', () => {
     cy.contains('p', 'BASICS').click()
 
     // set 2 unlogical labels
-    // manually doesn't work properly - it's hard to reproduce by physically typing
     cy.get('input[placeholder=\'Search by label.\'').type('CLI{enter}').type('L2VPN{enter}')
     cy.wait(300)
     // test
@@ -87,7 +83,7 @@ describe('master test for checking workflow manager features', () => {
       })
   })
 
-  it.skip('wf uninstall all devices', () => {
+  it('wf uninstall all devices', () => {
     cy.xpath('/html/body/div[1]/div[1]/div[1]/button').click()
     cy.get('a[data-index=\'1\'').click()
     cy.url().should('include', 'definitions')
@@ -98,22 +94,21 @@ describe('master test for checking workflow manager features', () => {
         expect(row.length).eq(1)
       })
     cy.xpath('/html/body/div[1]/div[2]/div[2]/table/tbody/tr[1]/td[4]/div/div/button[2]').click()
-    cy.get('input[placeholder=\'Enter the input\']').type('CREATE_LOOPBACK_DEMO')
+    cy.get('input[name="labels"]').type('CREATE_LOOPBACK_DEMO')
     cy.contains('button', 'Execute').click()
-    cy.contains('a', '-', { timeout: 10000 }).click()
-
+    cy.contains('Executed workflow in detail').click()
     // test
     cy.contains('div', 'Status', { timeout: 1200000 }).should('contain', 'COMPLETED')
   })
 
-  it.skip('wf install specific device by name', () => {
+  it('wf install specific device by name', () => {
     cy.visit(`${Cypress.env('host')}frinxui/workflow-manager/definitions`)
     cy.get('input[placeholder=\'Search by keyword.\'').type('Install_device_by_')
     cy.wait(300)
     cy.xpath('/html/body/div[1]/div[2]/div[2]/table/tbody/tr[2]/td[4]/div/div/button[2]').click()
-    cy.get('input[placeholder=\'Enter the input\']').type('XR01')
+    cy.get("input[name='device_name']").type('XR01')
     cy.contains('button', 'Execute').click()
-    cy.contains('a', '-', { timeout: 10000 }).click()
+    cy.contains('a', 'Executed workflow in detail', { timeout: 10000 }).click()
     cy.contains('div', 'Status', { timeout: 1200000 }).should('contain', 'COMPLETED')
   })
 
@@ -172,7 +167,7 @@ describe('master test for checking workflow manager features', () => {
     cy.xpath('/html/body/div[4]/div[4]/div/section/div/form/div[1]/input').clear().type(crontabValue)
     cy.xpath('/html/body/div[4]/div[4]/div/section/div/form/div[2]/label/span[1]').click()
 
-    const wfContent = '{"input":{"labels":"CREATE_LOOPBACK_DEMO"},"scheduleName":"frinx___Create_loopback_all_in_uniconfig:1","labels":"CREATE_LOOPBACK_DEMO","loopback_id":"789"}}'
+    const wfContent = '{"input":{"labels":"CREATE_LOOPBACK_DEMO"},"scheduleName":"frinx___Create_loopback_all_in_uniconfig:1","labels":"CREATE_LOOPBACK_DEMO","loopback_id":"789"}'
 
     cy.get('.ace_content').type('{backspace}{backspace}')
     cy.get('.ace_content').type(wfContent, { parseSpecialCharSequences: false })
@@ -192,7 +187,7 @@ describe('master test for checking workflow manager features', () => {
       .invoke('val')
       .then((crontabValue2) => {
         cy.log(crontabValue2)
-        expect(crontabValue2).eq(wfContent)
+        expect(crontabValue2).eq(crontabValue)
       })
 
     // test
@@ -248,7 +243,7 @@ describe('master test for checking workflow manager features', () => {
     cy.xpath('/html/body/div[1]/div[2]/div/div').should('contain', 'There are no scheduled workflows yet')
   })
 
-  it.skip('try create wf', () => {
+  it('try create wf', () => {
     cy.xpath('/html/body/div[1]/div[1]/div[1]/button').click()
     cy.get('a[data-index=\'1\'').click()
     cy.url().should('include', 'definitions')
