@@ -71,7 +71,6 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.get('button').contains('Save changes').click()
   })
 
-  // toto ok???
   it('should check edited device', () => {
     cy.visit(deviceInventoryUrl)
     cy.get("a[aria-label='edit']").eq(0).click()
