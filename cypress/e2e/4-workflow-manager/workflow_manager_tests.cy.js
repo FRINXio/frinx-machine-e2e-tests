@@ -18,7 +18,7 @@ describe('master test for checking workflow manager features', () => {
     cy.get('h1').should('include.text', 'Workflows')
   })
 
-  it('filter by label', () => {
+  it.skip('filter by label', () => {
     cy.get('[href=\'/frinxui/workflow-manager/definitions\']').click()
     cy.url().should('include', 'definitions')
 
@@ -150,7 +150,7 @@ describe('master test for checking workflow manager features', () => {
     cy.contains('div', 'Status', { timeout: 1200000 }).should('contain', 'COMPLETED')
   })
 
-  it('try add wf to scheduled', () => {
+  it.skip('try add wf to scheduled', () => {
     cy.get('[href=\'/frinxui/workflow-manager/definitions\']').click()
     cy.get('input[placeholder=\'Search by keyword.\'').type('Create_loopback_')
     cy.get('button[aria-haspopup=\'menu\']').eq(2).click()
