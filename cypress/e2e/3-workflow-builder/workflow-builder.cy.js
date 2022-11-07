@@ -72,7 +72,7 @@ describe('Create workflow, test and delete it', () => {
     cy.get('input[name="device_name"]').type('SAOS6_2')
     cy.contains('button', 'Execute').click()
     cy.contains('Executed workflow in detail').click()
-    cy.contains('COMPLETED', { timeout: 4000 }).eq(0).should('be.visible')
+    cy.contains('COMPLETED', { timeout: 10000 }).eq(0).should('be.visible')
   })
 
   it('save changes check', () => {

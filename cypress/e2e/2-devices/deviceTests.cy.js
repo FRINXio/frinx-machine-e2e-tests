@@ -10,10 +10,11 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.get("a[data-index='2']").click()
   })
 
-  it('should find device by name and install afterwards', () => {
+  it('should find device by label and install afterwards', () => {
     cy.wait(500)
     cy.get("input[placeholder='Start typing...']").click()
     cy.contains('IOS').click()
+    cy.get("input[placeholder='Search device']").type('IOS01')
     cy.get('button').contains('Search').click()
     cy.wait(500)
     cy.get("span[aria-hidden='true'").eq(1).click()
@@ -28,7 +29,7 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.contains('Config data store').should('be.visible')
   })
 
-  it('should search device by label and install it afterwards', () => {
+  it('should search device by name and install it afterwards', () => {
     cy.visit(deviceInventoryUrl)
     cy.get("input[placeholder='Search device']").type('IOS02')
     cy.get('button').contains('Search').click()
