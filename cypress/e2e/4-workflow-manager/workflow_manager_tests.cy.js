@@ -98,7 +98,7 @@ describe('master test for checking workflow manager features', () => {
     cy.contains('button', 'Execute').click()
     cy.contains('Executed workflow in detail').click()
     // test
-    cy.contains('div', 'Status', { timeout: 1200000 }).should('contain', 'COMPLETED')
+    cy.contains('div', 'Status', { timeout: 300000 }).should('contain', 'COMPLETED')
   })
 
   it('wf install specific device by name', () => {
@@ -109,7 +109,7 @@ describe('master test for checking workflow manager features', () => {
     cy.get("input[name='device_name']").type('XR01')
     cy.contains('button', 'Execute').click()
     cy.contains('a', 'Executed workflow in detail', { timeout: 10000 }).click()
-    cy.contains('div', 'Status', { timeout: 1200000 }).should('contain', 'COMPLETED')
+    cy.contains('div', 'Status', { timeout: 300000 }).should('contain', 'COMPLETED')
   })
 
   it('install one device', () => {
@@ -147,7 +147,7 @@ describe('master test for checking workflow manager features', () => {
     cy.get('input[name=\'loopback_id\'').type('70')
     cy.contains('button', 'Execute').click()
     cy.contains('Executed workflow in detail', { timeout: 10000 }).click({})
-    cy.contains('div', 'Status', { timeout: 1200000 }).should('contain', 'COMPLETED')
+    cy.contains('div', 'Status', { timeout: 300000 }).should('contain', 'COMPLETED')
   })
 
   it.skip('try add wf to scheduled', () => {
