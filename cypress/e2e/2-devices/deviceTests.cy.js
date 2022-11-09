@@ -68,6 +68,8 @@ describe('master test for checking multiple device inventory settings', () => {
     cy.get("input[placeholder='Enter model of the device']").type('CRI-24-Y8')
     cy.get("input[placeholder='Enter address of the device']").type('192.168.1.17')
     cy.get("input[aria-autocomplete='list']").type('EXAMPLE')
+    cy.contains('Create "EXAMPLE"').should('be.visible').click()
+    cy.get("input[aria-autocomplete='list']").type('EXAMPLE')
     cy.contains('EXAMPLE').should('be.visible').click()
     cy.get('button').contains('Save changes').click()
   })
