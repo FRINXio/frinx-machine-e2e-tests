@@ -47,7 +47,7 @@ For npm
 ```bash
 npm install
 kubectl port-forward -n frinx-e2e svc/krakend 8080:8080
-npx cypress run --env host=localhost:8080
+npx cypress run --env host=localhost:8080/
 ```
 
 For testkube
