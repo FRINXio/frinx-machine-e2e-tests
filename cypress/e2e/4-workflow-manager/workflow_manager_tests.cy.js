@@ -18,7 +18,7 @@ describe('master test for checking workflow manager features', () => {
     cy.get('h1').should('include.text', 'Workflows')
   })
 
-  it('filter by label', () => {
+  it.skip('filter by label', () => {
     cy.get('[href=\'/frinxui/workflow-manager/definitions\']').click()
     cy.url().should('include', 'definitions')
 
@@ -114,7 +114,7 @@ describe('master test for checking workflow manager features', () => {
 
   it('install one device', () => {
     cy.visit(Cypress.env('host') + 'frinxui/inventory/devices')
-    cy.get("input[placeholder='Search device']").type('Leaf01')
+    cy.get("input[placeholder='Search device']").type('XR02')
     cy.get('button').contains('Search').click()
     cy.wait(500)
     cy.get('button').contains('Install').click()
@@ -143,7 +143,7 @@ describe('master test for checking workflow manager features', () => {
     cy.get('input[placeholder=\'Search by keyword.\'').type('Create_loopback_interface_uniconfig')
     cy.xpath('/html/body/div[1]/div[2]/div[2]/table/tbody/tr/td[4]/div/div/button[2]').click()
     cy.wait(1000)
-    cy.get('input[name=\'device_id\'').type('Leaf01')
+    cy.get('input[name=\'device_id\'').type('XR02')
     cy.get('input[name=\'loopback_id\'').type('70')
     cy.contains('button', 'Execute').click()
     cy.contains('Executed workflow in detail', { timeout: 10000 }).click({})
@@ -160,14 +160,14 @@ describe('master test for checking workflow manager features', () => {
     const now = new Date()
     const month = now.getMonth() + 1
     const day = now.getDate()
-    const hour = now.getHours() - 2
-    const minute = now.getMinutes() + 1
+    const hour = now.getHours() - 1
+    const minute = now.getMinutes() + 2
     const crontabValue = minute + ' ' + hour + ' ' + day + ' ' + month + ' ' + '*'
 
     cy.xpath('/html/body/div[4]/div[4]/div/section/div/form/div[1]/input').clear().type(crontabValue)
     cy.xpath('/html/body/div[4]/div[4]/div/section/div/form/div[2]/label/span[1]').click()
 
-    const wfContent = '{"input":{"labels":"CREATE_LOOPBACK_DEMO"},"scheduleName":"frinx___Create_loopback_all_in_uniconfig:1","labels":"CREATE_LOOPBACK_DEMO","loopback_id":"789"}'
+    const wfContent = '{"input":{"labels":"XR"},"scheduleName":"frinx___Create_loopback_all_in_uniconfig:1","labels":"XR","loopback_id":"789"}'
 
     cy.get('.ace_content').type('{backspace}{backspace}')
     cy.get('.ace_content').type(wfContent, { parseSpecialCharSequences: false })
@@ -229,7 +229,7 @@ describe('master test for checking workflow manager features', () => {
 
     let status = 'RUNNING'
     let limit = 250
-    let timeout = 60_000
+    let timeout = 120_000
 
     reloadPageUntil(status, limit, timeout)
 
