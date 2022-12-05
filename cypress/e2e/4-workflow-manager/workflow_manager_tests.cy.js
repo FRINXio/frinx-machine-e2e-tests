@@ -158,9 +158,9 @@ describe('master test for checking workflow manager features', () => {
 
     // generate cron tab value -> +1 min from now
     const now = new Date()
-    const month = now.getMonth() + 1
-    const day = now.getDate()
-    const hour = now.getHours() - 1
+    const month = '*'
+    const day = '*'
+    const hour = '*'
     const minute = now.getMinutes() + 2
     const crontabValue = minute + ' ' + hour + ' ' + day + ' ' + month + ' ' + '*'
 
