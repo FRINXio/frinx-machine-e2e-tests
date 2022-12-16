@@ -18,7 +18,7 @@ describe('master test for checking workflow manager features', () => {
     cy.get('h1').should('include.text', 'Workflows')
   })
 
-  it.skip('filter by label', () => {
+  it('filter by label', () => {
     cy.get('[href=\'/frinxui/workflow-manager/definitions\']').click()
     cy.url().should('include', 'definitions')
 
